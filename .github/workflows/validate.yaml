@@ -1,0 +1,14 @@
+name: Pull Request validation
+
+on: [pull_request]
+
+
+jobs:
+  gora_finance-contracts-ci:
+    name: Run gora_finance-contracts validation
+    uses: ./.github/workflows/gora_finance-contracts-ci.yaml
+
+  gora_finance-frontend-ci:
+    name: Run gora_finance-frontend validation
+    uses: ./.github/workflows/gora_finance-frontend-ci.yaml
+

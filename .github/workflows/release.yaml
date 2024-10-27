@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '.vscode/**'
+      - '.idea/**'
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  gora_finance-contracts-validate:
+    name: Run gora_finance-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/gora_finance-contracts-ci.yaml
+
+  gora_finance-contracts-release:
+    name: Run gora_finance-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/gora_finance-contracts-cd.yaml
+    needs: gora_finance-contracts-validate
+
+  gora_finance-frontend-validate:
+    name: Run gora_finance-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/gora_finance-frontend-ci.yaml
+
+  gora_finance-frontend-release:
+    name: Run gora_finance-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/gora_finance-frontend-cd.yaml
+    needs: gora_finance-frontend-validate
